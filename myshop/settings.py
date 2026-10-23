@@ -131,3 +131,12 @@ STATIC_URL = '/static/'
 PAYPAL_RECEIVER_EMAIL='vin1989eet@gmail.com'
 PAYPAL_TEST = True
 
+
+
+# --- Local/Docker run overrides (added for minimal runnable setup) ---
+import os as _os
+ALLOWED_HOSTS = _os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0').split(',')
+# TODO: load SECRET_KEY from the environment before deploying.
+if _os.environ.get('USE_MOCKS', '1') == '1':
+    PAYPAL_TEST = True  # MOCK: PayPal sandbox only
+    PAYPAL_RECEIVER_EMAIL = _os.environ.get('PAYPAL_RECEIVER_EMAIL', 'merchant@example.com')  # MOCK receiver

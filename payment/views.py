@@ -27,6 +27,7 @@ def payment_process(request):
     return render(request, 'payment/process.html', {'order': order,
                                                     'form':form})
 @csrf_exempt
+# TODO: mark the order as paid from the PayPal IPN signal (payment/signals.py) once IPN can reach the server.
 def payment_done(request):
     return render(request, 'payment/done.html')
 
